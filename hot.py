@@ -19,8 +19,19 @@ logo = Fore.GREEN+'''
 sFTTag_url = "https://login.live.com/oauth20_authorize.srf?client_id=000000004C12AE6F" \
              "&redirect_uri=https://login.live.com/oauth20_desktop.srf" \
              "&scope=service::user.auth.xboxlive.com::MBI_SSL&display=touch&response_type=token&locale=en"
-Combos = []
+proxyList = input('\033[1;37mproxy : \033[1;37m')
+def proxy():
+    logging.basicConfig()
+    pl = ProxyList()
+    try:
+        pl.load_file(proxyList)
+    except:
+        sys.exit('\033[1;31m[!] Proxy File format has incorrect | EXIT...\033[1;31m')
+    pl.random()
+    getProxy = pl.random().address()
+    b.set_proxies(proxies={"https": getProxy})
 proxylist = []
+Combos = []
 fname = ""
 hits,bad,twofa,cpm,cpm1,errors,retries,checked,vm,sfa,mfa,maxretries,bedrock = 0,0,0,0,0,0,0,0,0,0,0,0,0
 urllib3.disable_warnings() #spams warnings because i send unverified requests for debugging purposes
